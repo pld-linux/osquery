@@ -57,6 +57,12 @@ mv third-party-%{version}/* third-party
 %build
 install -d build
 cd build
+
+OSQUERY_PLATFORM="pld;%{pld_release}" \
+OSQUERY_BUILD_VERSION=%{version} \
+BUILD_LINK_SHARED=True \
+SDK_VERSION=%{version} \
+SKIP_TESTS=True \
 %cmake \
 	..
 %{__make} \
