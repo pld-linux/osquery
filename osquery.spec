@@ -9,6 +9,7 @@ Source0:	https://github.com/facebook/osquery/archive/%{version}/%{name}-%{versio
 Source1:	https://github.com/osquery/third-party/archive/%{version}/%{name}-third-party-%{version}.tar.gz
 # Source1-md5:	940f351cef7965b0f57df70d54885ded
 Patch0:		platform.patch
+Patch1:		gcc-flags.patch
 URL:		https://osquery.io/
 BuildRequires:	boost-devel
 BuildRequires:	bzip2-devel
@@ -45,6 +46,7 @@ network connections, browser plugins, hardware events or file hashes.
 %prep
 %setup -q -a1
 %patch0 -p1
+%patch1 -p1
 
 mv third-party-%{version}/* third-party
 
