@@ -18,6 +18,7 @@ BuildRequires:	cryptsetup-devel
 BuildRequires:	device-mapper-devel
 BuildRequires:	doxygen
 BuildRequires:	gflags-devel
+BuildRequires:	gmock-devel
 BuildRequires:	iptables-devel
 BuildRequires:	libblkid-devel
 BuildRequires:	libdpkg-devel
