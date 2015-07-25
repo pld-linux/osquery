@@ -26,7 +26,9 @@ BuildRequires:	openssl-devel
 BuildRequires:	python
 BuildRequires:	readline-devel
 BuildRequires:	rocksdb-devel
+BuildRequires:	rocksdb-static
 BuildRequires:	snappy-devel
+BuildRequires:	snappy-static
 BuildRequires:	thrift-devel
 BuildRequires:	udev-devel
 BuildRequires:	yara-devel
