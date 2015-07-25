@@ -8,6 +8,7 @@ Source0:	https://github.com/facebook/osquery/archive/%{version}/%{name}-%{versio
 # Source0-md5:	af772f7fe7b9b9a3e8ef2abfa69c2d04
 Source1:	https://github.com/osquery/third-party/archive/%{version}/%{name}-third-party-%{version}.tar.gz
 # Source1-md5:	940f351cef7965b0f57df70d54885ded
+Patch0:		platform.patch
 URL:		https://osquery.io/
 BuildRequires:	boost-devel
 BuildRequires:	bzip2-devel
@@ -43,6 +44,7 @@ network connections, browser plugins, hardware events or file hashes.
 
 %prep
 %setup -q -a1
+%patch0 -p1
 
 mv third-party-%{version}/* third-party
 
