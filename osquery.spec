@@ -9,7 +9,9 @@ Source0:	https://github.com/facebook/osquery/archive/%{version}/%{name}-%{versio
 Source1:	https://github.com/osquery/third-party/archive/%{version}/%{name}-third-party-%{version}.tar.gz
 # Source1-md5:	940f351cef7965b0f57df70d54885ded
 URL:		https://osquery.io/
+BuildRequires:	boost-devel
 BuildRequires:	bzip2-devel
+BuildRequires:	cmake
 BuildRequires:	cryptsetup-devel
 BuildRequires:	device-mapper-devel
 BuildRequires:	doxygen
@@ -23,8 +25,11 @@ BuildRequires:	ncurses-devel
 BuildRequires:	openssl-devel
 BuildRequires:	python
 BuildRequires:	readline-devel
+BuildRequires:	rocksdb-devel
+BuildRequires:	snappy-devel
 BuildRequires:	thrift-devel
 BuildRequires:	udev-devel
+BuildRequires:	yara-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
