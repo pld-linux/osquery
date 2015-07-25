@@ -6,7 +6,25 @@ License:	BSD
 Group:		Applications/Databases
 Source0:	https://github.com/facebook/osquery/archive/%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	af772f7fe7b9b9a3e8ef2abfa69c2d04
+Source1:	https://github.com/osquery/third-party/archive/%{version}/%{name}-third-party-%{version}.tar.gz
+# Source1-md5:	940f351cef7965b0f57df70d54885ded
 URL:		https://osquery.io/
+BuildRequires:	bzip2-devel
+BuildRequires:	cryptsetup-devel
+BuildRequires:	device-mapper-devel
+BuildRequires:	doxygen
+BuildRequires:	gflags-devel
+BuildRequires:	iptables-devel
+BuildRequires:	libblkid-devel
+BuildRequires:	libdpkg-devel
+BuildRequires:	libgcrypt-devel
+BuildRequires:	libuuid-devel
+BuildRequires:	ncurses-devel
+BuildRequires:	openssl-devel
+BuildRequires:	python
+BuildRequires:	readline-devel
+BuildRequires:	thrift-devel
+BuildRequires:	udev-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -17,14 +35,21 @@ concepts such as running processes, loaded kernel modules, open
 network connections, browser plugins, hardware events or file hashes.
 
 %prep
-%setup -q
+%setup -q -a1
+
+mv third-party-%{version}/* third-party
 
 %build
-%{__make} deps
+install -d build
+cd build
+%cmake \
+	..
+%{__make} \
+	CTEST_OUTPUT_ON_FAILURE=1
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} install \
+%{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
