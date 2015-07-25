@@ -36,6 +36,9 @@ BuildRequires:	udev-devel
 BuildRequires:	yara-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+# build fails with CC having spaces
+%undefine	with_ccache
+
 %description
 osquery exposes an operating system as a high-performance relational
 database. This allows you to write SQL-based queries to explore
