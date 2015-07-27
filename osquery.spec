@@ -6,8 +6,8 @@ License:	BSD
 Group:		Applications/Databases
 Source0:	https://github.com/facebook/osquery/archive/%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	260cb34190316cf38d879ffe33eb1d76
-Source1:	https://github.com/osquery/third-party/archive/%{version}/%{name}-third-party-1.5.0.tar.gz
-# Source1-md5:	940f351cef7965b0f57df70d54885ded
+Source1:	https://github.com/osquery/third-party/archive/%{version}/%{name}-third-party-%{version}.tar.gz
+# Source1-md5:	40da5c78ae344d5869fa5ef0e3946246
 Patch1:		gcc-flags.patch
 URL:		https://osquery.io/
 BuildRequires:	bison
@@ -58,7 +58,7 @@ network connections, browser plugins, hardware events or file hashes.
 %setup -q -a1
 %patch1 -p1
 
-mv third-party-%{version}/* third-party
+mv third-party-*/* third-party
 
 %build
 install -d build
