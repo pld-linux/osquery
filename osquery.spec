@@ -12,36 +12,37 @@ Patch0:		platform.patch
 Patch1:		gcc-flags.patch
 URL:		https://osquery.io/
 BuildRequires:	bison
-BuildRequires:	boost-devel
+BuildRequires:	boost-devel >= 1.55.0
 BuildRequires:	byacc
 BuildRequires:	bzip2-devel
 BuildRequires:	cmake
-BuildRequires:	cryptsetup-devel
+BuildRequires:	cryptsetup-devel >= 1.6.7
 BuildRequires:	device-mapper-devel
 BuildRequires:	doxygen
 BuildRequires:	flex
 BuildRequires:	gettext-devel
-BuildRequires:	gflags-devel
+BuildRequires:	gflags-devel >= 2.1.1
 BuildRequires:	gmock-devel
-BuildRequires:	iptables-devel
+BuildRequires:	iptables-devel >= 1.4.21
 BuildRequires:	libblkid-devel
 BuildRequires:	libdpkg-devel
 BuildRequires:	libgcrypt-devel
 BuildRequires:	libuuid-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	openssl-devel
+BuildRequires:	pkg-config >= 0.28
 BuildRequires:	python
 BuildRequires:	python-argparse
 BuildRequires:	python-jinja2
 BuildRequires:	python-psutil
 BuildRequires:	readline-devel
-BuildRequires:	rocksdb-devel
-BuildRequires:	rocksdb-static
-BuildRequires:	snappy-devel
-BuildRequires:	snappy-static
-BuildRequires:	thrift-devel
-BuildRequires:	udev-devel
-BuildRequires:	yara-devel
+BuildRequires:	rocksdb-devel >= 3.10.2
+BuildRequires:	rocksdb-static >= 3.10.2
+BuildRequires:	snappy-devel >= 1.1.1
+BuildRequires:	snappy-static >= 1.1.1
+BuildRequires:	thrift-devel >= 0.9.1
+BuildRequires:	udev-devel >= 1:095
+BuildRequires:	yara-devel >= 3.4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # build fails with CC having spaces
