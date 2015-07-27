@@ -11,12 +11,16 @@ Source1:	https://github.com/osquery/third-party/archive/%{version}/%{name}-third
 Patch0:		platform.patch
 Patch1:		gcc-flags.patch
 URL:		https://osquery.io/
+BuildRequires:	bison
 BuildRequires:	boost-devel
+BuildRequires:	byacc
 BuildRequires:	bzip2-devel
 BuildRequires:	cmake
 BuildRequires:	cryptsetup-devel
 BuildRequires:	device-mapper-devel
 BuildRequires:	doxygen
+BuildRequires:	flex
+BuildRequires:	gettext-devel
 BuildRequires:	gflags-devel
 BuildRequires:	gmock-devel
 BuildRequires:	iptables-devel
