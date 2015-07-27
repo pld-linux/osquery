@@ -27,6 +27,9 @@ BuildRequires:	libuuid-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	openssl-devel
 BuildRequires:	python
+BuildRequires:	python-argparse
+BuildRequires:	python-jinja2
+BuildRequires:	python-psutil
 BuildRequires:	readline-devel
 BuildRequires:	rocksdb-devel
 BuildRequires:	rocksdb-static
