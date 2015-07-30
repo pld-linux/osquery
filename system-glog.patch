@@ -1,0 +1,80 @@
+add glog from hhvm
+https://github.com/facebook/hhvm/commit/76a789b29068bc79db73a98e5835dc280b9a7f3c
+
+--- osquery-1.5.1/CMakeLists.txt	2015-07-30 21:12:40.073789154 +0300
++++ osquery-1.5.1/CMakeLists.txt	2015-07-30 21:16:50.116799762 +0300
+@@ -303,6 +303,8 @@
+ find_package(Sqlite3 REQUIRED)
+ find_package(Thrift 0.9.1 REQUIRED)
+ 
++LOG_LIBRARY(glog "${LIBGLOG_LIBRARY}")
++
+ # If using the RocksDB LITE version our code must also define ROCKSDB_LITE=1
+ if(ROCKSDB_LITE_FOUND)
+   add_definitions(-DROCKSDB_LITE=1)
+@@ -319,7 +321,7 @@
+ include(Packages)
+ include(Thrift)
+ 
+-include_directories("${GLOG_INCLUDE_DIRS}")
++include_directories("${LIBGLOG_INCLUDE_DIR}")
+ include_directories("${CMAKE_SOURCE_DIR}/include")
+ include_directories("${CMAKE_SOURCE_DIR}")
+ include_directories("/usr/local/include")
+--- osquery-1.5.1/CMake/FindGlog.cmake~	2015-07-27 04:11:42.000000000 +0300
++++ osquery-1.5.1/CMake/FindGlog.cmake	2015-07-30 21:15:42.446611981 +0300
+@@ -1,35 +1,19 @@
+-include(FindPackageHandleStandardArgs)
+-if(POLICY CMP0054)
+-  cmake_policy(SET CMP0054 NEW)
+-endif()
+-
+-set(GLOG_ROOT_DIR "${CMAKE_BINARY_DIR}/third-party/glog")
+-set(GLOG_SOURCE_DIR "${CMAKE_SOURCE_DIR}/third-party/glog")
+-
+-set(GLOG_C_FLAGS "${CMAKE_C_FLAGS} ${C_COMPILE_FLAGS}")
+-set(GLOG_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX_COMPILE_FLAGS}")
+-set(GLOG_CXX_FLAGS "${GLOG_CXX_FLAGS} -Wno-deprecated-register -Wno-unnamed-type-template-args -Wno-deprecated -Wno-error")
+-
+-INCLUDE(ExternalProject)
+-ExternalProject_Add(
+-  libglog
+-  SOURCE_DIR ${GLOG_SOURCE_DIR}
+-  INSTALL_DIR ${GLOG_ROOT_DIR}
+-  CONFIGURE_COMMAND ${GLOG_SOURCE_DIR}/configure
+-    CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
+-    CFLAGS=${GLOG_C_FLAGS} CXXFLAGS=${GLOG_CXX_FLAGS}
+-    --enable-frame-pointers --enable-shared=no --prefix=${GLOG_ROOT_DIR}
+-  BUILD_COMMAND ${CMAKE_MAKE_PROGRAM}
+-  INSTALL_COMMAND ${CMAKE_MAKE_PROGRAM} install
+-  LOG_CONFIGURE ON
+-  LOG_INSTALL ON
+-  LOG_BUILD ON
+-)
+-
+-set(GLOG_INCLUDE_DIR "${GLOG_ROOT_DIR}/include")
+-set(GLOG_INCLUDE_DIRS ${GLOG_INCLUDE_DIR})
+-
+-set(GLOG_LIBRARY "${GLOG_ROOT_DIR}/lib/libglog.a")
+-set(GLOG_LIBRARIES ${GLOG_LIBRARY})
+-
+-LOG_LIBRARY(glog "${GLOG_LIBRARY}")
++# Find libglog
++#
++#  LIBGLOG_INCLUDE_DIR - where to find glog/logging.h, etc.
++#  LIBGLOG_LIBRARY     - List of libraries when using libglog.
++#  LIBGLOG_FOUND       - True if libglog found.
++
++IF (LIBGLOG_INCLUDE_DIR)
++  # Already in cache, be silent
++  SET(LIBGLOG_FIND_QUIETLY TRUE)
++ENDIF ()
++
++FIND_PATH(LIBGLOG_INCLUDE_DIR glog/logging.h)
++FIND_LIBRARY(LIBGLOG_LIBRARY glog)
++
++# handle the QUIETLY and REQUIRED arguments and set Libmemcached_FOUND to TRUE
++# if all listed variables are TRUE
++INCLUDE(FindPackageHandleStandardArgs)
++FIND_PACKAGE_HANDLE_STANDARD_ARGS(LIBGLOG DEFAULT_MSG LIBGLOG_LIBRARY LIBGLOG_INCLUDE_DIR)
++MARK_AS_ADVANCED(LIBGLOG_LIBRARY LIBGLOG_INCLUDE_DIR)

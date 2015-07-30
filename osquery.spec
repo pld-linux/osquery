@@ -9,6 +9,7 @@ Source0:	https://github.com/facebook/osquery/archive/%{version}/%{name}-%{versio
 Source1:	https://github.com/osquery/third-party/archive/%{version}/%{name}-third-party-%{version}.tar.gz
 # Source1-md5:	40da5c78ae344d5869fa5ef0e3946246
 Patch1:		gcc-flags.patch
+Patch2:		system-glog.patch
 URL:		https://osquery.io/
 BuildRequires:	bison
 BuildRequires:	boost-devel >= 1.55.0
@@ -21,6 +22,7 @@ BuildRequires:	doxygen
 BuildRequires:	flex
 BuildRequires:	gettext-devel
 BuildRequires:	gflags-devel >= 2.1.1
+BuildRequires:	glog-devel
 BuildRequires:	gmock-devel
 BuildRequires:	iptables-devel >= 1.4.21
 BuildRequires:	libblkid-devel
@@ -35,14 +37,16 @@ BuildRequires:	python-argparse
 BuildRequires:	python-jinja2
 BuildRequires:	python-psutil
 BuildRequires:	readline-devel
-BuildRequires:	rocksdb-devel >= 3.10.2
-BuildRequires:	rocksdb-static >= 3.10.2
+BuildRequires:	rocksdb-devel >= 3.9
+BuildRequires:	rocksdb-static >= 3.9
 BuildRequires:	snappy-devel >= 1.1.1
 BuildRequires:	snappy-static >= 1.1.1
 BuildRequires:	thrift-devel >= 0.9.1
 BuildRequires:	udev-devel >= 1:095
 BuildRequires:	yara-devel >= 3.4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		specflags	-DGFLAGS_NAMESPACE=gflags
 
 # build fails with CC having spaces
 %undefine	with_ccache
@@ -57,6 +61,7 @@ network connections, browser plugins, hardware events or file hashes.
 %prep
 %setup -q -a1
 %patch1 -p1
+%patch2 -p1
 
 mv third-party-*/* third-party
 
