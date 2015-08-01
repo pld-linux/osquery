@@ -1,5 +1,6 @@
 # NOTE:
 # - cpp-netlib is patched with cihper/options: https://github.com/osquery/third-party/commit/8b39e224380a2f9492f00727268bff8e9cda3106
+#   upstreamed, but not yet released: https://github.com/cpp-netlib/cpp-netlib/pull/530
 #
 # Conditional build:
 %bcond_with	system_cppnetlib		# use system cpp-netlib
