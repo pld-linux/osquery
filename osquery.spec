@@ -10,12 +10,14 @@ Source1:	https://github.com/osquery/third-party/archive/%{version}/%{name}-third
 # Source1-md5:	40da5c78ae344d5869fa5ef0e3946246
 Patch1:		gcc-flags.patch
 Patch2:		system-glog.patch
+Patch3:		system-cpp-netlib.patch
 URL:		https://osquery.io/
 BuildRequires:	bison
 BuildRequires:	boost-devel >= 1.55.0
 BuildRequires:	byacc
 BuildRequires:	bzip2-devel
 BuildRequires:	cmake
+BuildRequires:	cpp-netlib-devel >= 0.11.0
 BuildRequires:	cryptsetup-devel >= 1.6.7
 BuildRequires:	device-mapper-devel
 BuildRequires:	doxygen
@@ -62,6 +64,7 @@ network connections, browser plugins, hardware events or file hashes.
 %setup -q -a1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 mv third-party-*/* third-party
 

@@ -1,0 +1,25 @@
+--- osquery-1.5.1/CMake/FindCppNetlib.cmake~	2015-07-27 04:11:42.000000000 +0300
++++ osquery-1.5.1/CMake/FindCppNetlib.cmake	2015-08-01 20:15:27.226849878 +0300
+@@ -1,19 +1,6 @@
+-set(CPP-NETLIB_SOURCE_DIR "${CMAKE_SOURCE_DIR}/third-party/cpp-netlib")
+-set(CPP-NETLIB_BUILD_DIR "${CMAKE_BINARY_DIR}/third-party/cpp-netlib")
+-
+-# Only build the cpp-netlib shared library.
+-set(CPP-NETLIB_BUILD_TESTS OFF CACHE BOOL "")
+-set(CPP-NETLIB_BUILD_EXAMPLES OFF CACHE BOOL "")
+-set(CPP-NETLIB_BUILD_SHARED_LIBS OFF CACHE BOOL "")
+-
+-include_directories("${CPP-NETLIB_SOURCE_DIR}")
+-add_subdirectory("${CPP-NETLIB_SOURCE_DIR}")
+-
+-set(CPP-NETLIB_LINK_DIR "${CPP-NETLIB_BUILD_DIR}/libs/network/src")
+ set(CPP-NETLIB_LIBRARY
+-  "${CPP-NETLIB_LINK_DIR}/libcppnetlib-uri.a"
+-  "${CPP-NETLIB_LINK_DIR}/libcppnetlib-client-connections.a"
++  "${CMAKE_INSTALL_LIBDIR}/libcppnetlib-uri.so"
++  "${CMAKE_INSTALL_LIBDIR}/libcppnetlib-client-connections.so"
+ )
+ 
+-LOG_LIBRARY(cpp-netlib "${CPP-NETLIB_LINK_DIR}/libcppnetlib-uri.a")
+-LOG_LIBRARY(cpp-netlib "${CPP-NETLIB_LINK_DIR}/libcppnetlib-client-connections.a")
++LOG_LIBRARY(cpp-netlib "${CPP-NETLIB_LIBRARY}")
