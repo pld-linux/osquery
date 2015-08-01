@@ -1,3 +1,9 @@
+# NOTE:
+# - cpp-netlib is patched with cihper/options: https://github.com/osquery/third-party/commit/8b39e224380a2f9492f00727268bff8e9cda3106
+#
+# Conditional build:
+%bcond_with	system_cppnetlib		# use system cpp-netlib
+
 Summary:	osquery is an operating system instrumentation toolchain
 Name:		osquery
 Version:	1.5.1
@@ -17,7 +23,7 @@ BuildRequires:	boost-devel >= 1.55.0
 BuildRequires:	byacc
 BuildRequires:	bzip2-devel
 BuildRequires:	cmake
-BuildRequires:	cpp-netlib-devel >= 0.11.0
+%{?with_system_cppnetlib:BuildRequires:	cpp-netlib-devel >= 0.11.0}
 BuildRequires:	cryptsetup-devel >= 1.6.7
 BuildRequires:	device-mapper-devel
 BuildRequires:	doxygen
@@ -64,7 +70,7 @@ network connections, browser plugins, hardware events or file hashes.
 %setup -q -a1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
+%{?with_system_cppnetlib:%patch3 -p1}
 
 mv third-party-*/* third-party
 
