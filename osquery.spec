@@ -1,6 +1,8 @@
 # NOTE:
 # - cpp-netlib is patched with cihper/options: https://github.com/osquery/third-party/commit/8b39e224380a2f9492f00727268bff8e9cda3106
 #   upstreamed, but not yet released: https://github.com/cpp-netlib/cpp-netlib/pull/530
+# TODO:
+# - massive linking failure
 #
 # Conditional build:
 %bcond_with	system_cppnetlib		# use system cpp-netlib
@@ -18,6 +20,7 @@ Source1:	https://github.com/osquery/third-party/archive/%{version}/%{name}-third
 Patch1:		gcc-flags.patch
 Patch2:		system-glog.patch
 Patch3:		system-cpp-netlib.patch
+Patch4:		cpp-netlib-shared.patch
 URL:		https://osquery.io/
 BuildRequires:	bison
 BuildRequires:	boost-devel >= 1.55.0
@@ -72,6 +75,7 @@ network connections, browser plugins, hardware events or file hashes.
 %patch1 -p1
 %patch2 -p1
 %{?with_system_cppnetlib:%patch3 -p1}
+%patch4 -p1
 
 mv third-party-*/* third-party
 
@@ -85,6 +89,7 @@ BUILD_LINK_SHARED=True \
 SDK_VERSION=%{version} \
 SKIP_TESTS=True \
 %cmake \
+	-DBUILD_LINK_SHARED=ON \
 	..
 %{__make} \
 	CTEST_OUTPUT_ON_FAILURE=1

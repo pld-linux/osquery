@@ -1,0 +1,32 @@
+respect ENV{BUILD_LINK_SHARED}
+
+as if osquery is built with BUILD_LINK_SHARED enabled, cpp-netlib is also built with shared libs
+
+actually, on my systems, i have aways libcppnetlib-uri.so, not libcppnetlib-uri.a
+
+--- osquery-1.5.1/CMake/FindCppNetlib.cmake~	2015-08-01 23:21:57.000000000 +0300
++++ osquery-1.5.1/CMake/FindCppNetlib.cmake	2015-08-01 23:34:16.380500052 +0300
+@@ -10,10 +10,17 @@
+ add_subdirectory("${CPP-NETLIB_SOURCE_DIR}")
+ 
+ set(CPP-NETLIB_LINK_DIR "${CPP-NETLIB_BUILD_DIR}/libs/network/src")
+-set(CPP-NETLIB_LIBRARY
+-  "${CPP-NETLIB_LINK_DIR}/libcppnetlib-uri.a"
+-  "${CPP-NETLIB_LINK_DIR}/libcppnetlib-client-connections.a"
+-)
+ 
+-LOG_LIBRARY(cpp-netlib "${CPP-NETLIB_LINK_DIR}/libcppnetlib-uri.a")
+-LOG_LIBRARY(cpp-netlib "${CPP-NETLIB_LINK_DIR}/libcppnetlib-client-connections.a")
++if (FALSE) # if(NOT DEFINED ENV{BUILD_LINK_SHARED})
++  set(CPP-NETLIB_LIBRARY
++    "${CPP-NETLIB_LINK_DIR}/libcppnetlib-uri.a"
++    "${CPP-NETLIB_LINK_DIR}/libcppnetlib-client-connections.a"
++  )
++else()
++  set(CPP-NETLIB_LIBRARY
++    "${CPP-NETLIB_LINK_DIR}/libcppnetlib-uri.so"
++    "${CPP-NETLIB_LINK_DIR}/libcppnetlib-client-connections.so"
++  )
++endif()
++
++LOG_LIBRARY(cpp-netlib "${CPP-NETLIB_LIBRARY}")
